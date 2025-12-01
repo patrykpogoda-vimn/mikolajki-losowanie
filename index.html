@@ -3,35 +3,104 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<title>Secret Santa</title>
+<title>🎄 Secret Santa 🎁</title>
 <style>
+
 body {
-    font-family: Arial;
+    background: linear-gradient(#ffcccc, #ffeeee);
+    font-family: 'Arial', sans-serif;
+    text-align: center;
     padding: 40px;
-    font-size: 22px;
 }
-.box {
-    padding: 20px;
-    border: 2px solid #333;
-    display: inline-block;
-    margin-top:20px;
+
+h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
 }
+
+#gift-box {
+    width: 200px;
+    height: 200px;
+    background-color: #c00;
+    position: relative;
+    margin: 40px auto;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+}
+
+#gift-box:hover {
+    transform: scale(1.07);
+}
+
+#gift-lid {
+    width: 220px;
+    height: 60px;
+    background-color: #a00;
+    position: absolute;
+    top: -40px;
+    left: -10px;
+    border-radius: 20px;
+    transition: transform 0.6s ease;
+}
+
+#gift-ribbon {
+    position: absolute;
+    top: 0;
+    left: 90px;
+    width: 20px;
+    height: 200px;
+    background: #ffd700;
+}
+
+#gift-box.open #gift-lid {
+    transform: translateY(-120px) rotate(12deg);
+}
+
+#result {
+    margin-top: 30px;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    display: none;
+    font-size: 26px;
+    border: 3px solid #c33;
+}
+
 </style>
 </head>
 <body>
-<h1>🎄 Secret Santa 🎄</h1>
-<div id="result" class="box">Ładuję wynik...</div>
+
+<h1>🎅 Secret Santa – Kliknij prezent! 🎁</h1>
+
+<div id="gift-box">
+    <div id="gift-lid"></div>
+    <div id="gift-ribbon"></div>
+</div>
+
+<div id="result"></div>
 
 <script>
-const data = {"c22afb01": {"giver": "Aga", "receiver": "Jacek"}, "f60e1d77": {"giver": "Patryk", "receiver": "Micha\u0142"}, "38245f68": {"giver": "Magda", "receiver": "\u0141ukasz K"}, "288caaa3": {"giver": "Jacek", "receiver": "Aga"}, "8cc6afae": {"giver": "\u0141ukasz K", "receiver": "\u0141ukasz W"}, "1feb8c15": {"giver": "\u0141ukasz W", "receiver": "Magda"}, "1588b4b2": {"giver": "Micha\u0142", "receiver": "Patryk"}};
+const data = {"27e7ec40": {"giver": "Aga", "receiver": "Micha\u0142"}, "957cb983": {"giver": "Patryk", "receiver": "Jacek"}, "150c9da8": {"giver": "Magda", "receiver": "\u0141ukasz W"}, "1a6c36cd": {"giver": "Jacek", "receiver": "Patryk"}, "367677f4": {"giver": "\u0141ukasz K", "receiver": "Magda"}, "40dd35f8": {"giver": "\u0141ukasz W", "receiver": "Aga"}, "9da28d1d": {"giver": "Micha\u0142", "receiver": "\u0141ukasz K"}};
 
 const hash = window.location.hash.substring(1);
-if (!hash || !(hash in data)) {
-    document.getElementById("result").innerHTML = "Niepoprawny lub pusty link!";
-} else {
-    document.getElementById("result").innerHTML =
-      "Osoba, którą obdarowujesz: <b>" + data[hash].receiver + "</b> 🎁";
-}
+
+const box = document.getElementById("gift-box");
+const result = document.getElementById("result");
+
+box.onclick = function() {
+    box.classList.add("open");
+
+    setTimeout(() => {
+        if (!hash || !(hash in data)) {
+            result.innerHTML = "Niepoprawny lub pusty link!";
+        } else {
+            result.innerHTML =
+                "Twoja osoba to: <b>" + data[hash].receiver + "</b> 🎄🎁";
+        }
+        result.style.display = "block";
+    }, 900);
+};
 </script>
 
 </body>
