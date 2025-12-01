@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Secret Santa</title>
+<style>
+body { font-family: Arial; padding: 40px; font-size: 22px; }
+.box { padding: 20px; border: 2px solid #333; display: inline-block; margin-top:20px; }
+</style>
+</head>
+<body>
+<h1>🎄 Secret Santa 🎄</h1>
+<div id="result" class="box">Ładuję wynik...</div>
+
+<script>
+const data = {"f245d288": {"giver": "Aga", "receiver": "\u0141ukasz W"}, "f003b4fa": {"giver": "Patryk", "receiver": "Jacek"}, "2d688324": {"giver": "Magda", "receiver": "Aga"}, "fd3fa272": {"giver": "Jacek", "receiver": "\u0141ukasz K"}, "15820ae6": {"giver": "\u0141ukasz K", "receiver": "Magda"}, "574cfa6a": {"giver": "\u0141ukasz W", "receiver": "Micha\u0142"}, "d45e030c": {"giver": "Micha\u0142", "receiver": "Patryk"}};
+
+const hash = window.location.hash.substring(1);
+if (!hash || !(hash in data)) {
+    document.getElementById("result").innerHTML = "Niepoprawny lub pusty link!";
+} else {
+    document.getElementById("result").innerHTML =
+      "Osoba, którą obdarowujesz: <b>" + data[hash].receiver + "</b> 🎁";
+}
+</script>
+
+</body>
+</html>
